@@ -46,26 +46,6 @@ Hello everyone, this is a project that I have done for assignment. This project 
 
 </table>
 
-## Endpoints
-
-<table>
-    <tr>
-        <th>Method</th>
-        <th>Endpoint</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td>POST</td>
-        <td>/api/v1/mekna7/signup</td>
-        <td>Register a user</td>
-    </tr>
-    <tr>
-        <td>POST</td>
-        <td>/api/v1/mekna7/signin</td>
-        <td>Login a user</td>
-    </tr>
-</table>
-
 ## How to run the project
 
 1. Clone the project
@@ -85,6 +65,26 @@ npm install
 ```bash
 npm run dev
 ```
+
+## Endpoints
+
+<table>
+    <tr>
+        <th>Method</th>
+        <th>Endpoint</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>POST</td>
+        <td>/api/v1/mekna7/signup</td>
+        <td>Register a user</td>
+    </tr>
+    <tr>
+        <td>POST</td>
+        <td>/api/v1/mekna7/signin</td>
+        <td>Login a user</td>
+    </tr>
+</table>
 
 ## How to use the project
 
@@ -108,3 +108,5 @@ npm run dev
 
 - [Halazv2](https://github.com/Halazv2 "Halazv2")
 
+
+Don't forget to give a ⭐ if you like this project.
