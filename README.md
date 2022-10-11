@@ -6,37 +6,45 @@ Hello everyone, this is a project that I have done for assignment. This project 
 
 ## Technologies and libraries
 
-- [x] express <br />
+<table>
+    <tr>
+        <th>Technologies || libraries</th>
+        <th>why</th>
+    </tr>
+    <tr>
+        <td>express</td>
+        <td>I have used express to create a server and to create a REST API.</td>
+    </tr>
+    <tr>
+        <td>mongoose</td>
+        <td>I have used mongoose to connect to the database.</td>
+    </tr>
+    <tr>
+        <td>body-parser</td>
+        <td>Used body-parser to parse the body of the request.</td>
+    </tr>
+    <tr>
+        <td>cors</td>
+        <td>Used cors to allow cross-origin requests.</td>
+    </tr>
+    <tr>
+        <td>nodemon</td>
+        <td>Used nodemon to automatically restart the server when the file changes.</td>
+    </tr>
+    <tr>
+        <td>bcrypt</td>
+        <td>Used bcrypt to hash the password.</td>
+    </tr>
+    <tr>
+        <td>jsonwebtoken</td>
+        <td>Used jsonwebtoken to create a token.</td>
+    </tr>
+    <tr>
+        <td>dotenv</td>
+        <td>Used dotenv to load environment variables from a .env file.</td>
+    </tr>
 
-I have used express to create a server and to create a REST API. <br />
-
-- [x] mongoose <br />
-
-I have used mongoose to connect to the database. <br />
-
-- [x] body-parser <br />
-
-Used body-parser to parse the body of the request. <br />
-
-- [x] cors <br />
-
-Used cors to allow cross-origin requests. <br />
-
-- [x] nodemon <br />
-
-Used nodemon to automatically restart the server when the file changes. <br />
-
-- [x] bcrypt <br />
-
-Used bcrypt to hash the password. <br />
-
-- [x] jsonwebtoken <br />
-
-Used jsonwebtoken to create a token. <br />
-
-- [x] dotenv <br />
-
-Used dotenv to load environment variables from a .env file. <br />
+</table>
 
 ## Endpoints
 
