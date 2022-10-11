@@ -6,35 +6,35 @@ Hello everyone, this is a project that I have done for assignment. This project 
 
 ## Technologies and libraries
 
--[x] express <br />
+- [x] express <br />
 
 I have used express to create a server and to create a REST API. <br />
 
--[x] mongoose <br />
+- [x] mongoose <br />
 
 I have used mongoose to connect to the database. <br />
 
--[x] body-parser <br />
+- [x] body-parser <br />
 
 Used body-parser to parse the body of the request. <br />
 
--[x] cors <br />
+- [x] cors <br />
 
 Used cors to allow cross-origin requests. <br />
 
--[x] nodemon <br />
+- [x] nodemon <br />
 
 Used nodemon to automatically restart the server when the file changes. <br />
 
--[x] bcrypt <br />
+- [x] bcrypt <br />
 
 Used bcrypt to hash the password. <br />
 
--[x] jsonwebtoken <br />
+- [x] jsonwebtoken <br />
 
 Used jsonwebtoken to create a token. <br />
 
--[x] dotenv <br />
+- [x] dotenv <br />
 
 Used dotenv to load environment variables from a .env file. <br />
 
