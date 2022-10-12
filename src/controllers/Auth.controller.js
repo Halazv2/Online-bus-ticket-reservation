@@ -1,6 +1,6 @@
 "use strict";
 const config = require("../config/auth.config");
-const db = require("../models");
+const db = require("../models/auth");
 const User = db.user;
 const Role = db.role;
 
@@ -24,6 +24,7 @@ exports.signup = (req, res) => {
     if (req.body.roles) {
       Role.find(
         {
+          /* A mongoose query operator. It is used to match a set of values for a specific key. */
           name: { $in: req.body.roles },
         },
         (err, roles) => {
