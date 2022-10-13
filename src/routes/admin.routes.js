@@ -11,15 +11,21 @@ module.exports = function (app) {
     next();
   });
 
-  app.get(
-    `${url}/admin`,
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
-  );
-
   app.post(
     `${url}/admin/createTrip`,
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.createTrip
+  );
+
+  app.put(
+    `${url}/admin/updateTrip/:id`,
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.updateTrip
+  );
+
+  app.delete(
+    `${url}/admin/deleteTrip/:id`,
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.deleteTrip
   );
 };
