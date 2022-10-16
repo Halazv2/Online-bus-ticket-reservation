@@ -8,7 +8,7 @@ exports.createTrip = (req, res) => {
     deperture_date: req.body.deperture_date,
     arrival_date: req.body.arrival_date,
     seats: req.body.seats,
-    reserved_seats: req.body.reserved_seats,
+    // reserved_seats: req.body.reserved_seats,
     trip_status: req.body.trip_status,
     price: req.body.price,
   });
