@@ -4,5 +4,5 @@ mongoose.Promise = global.Promise;
 const db = {};
 
 db.mongoose = mongoose;
-db.admin = require("./admin.model");
+db.admin = require("./trip.model");
 module.exports = db;

@@ -23,10 +23,8 @@ exports.signup = (req, res) => {
 
     if (req.body.roles) {
       Role.find(
-        {
-          /* A mongoose query operator. It is used to match a set of values for a specific key. */
-          name: { $in: req.body.roles },
-        },
+        { name: { $in: req.body.roles } },
+        /* A mongoose query operator. It is used to match a set of values for a specific key. */
         (err, roles) => {
           if (err) {
             res.status(500).send({ message: err });
@@ -69,6 +67,7 @@ exports.signin = (req, res) => {
   User.findOne({
     email: req.body.email,
   })
+    /* A mongoose method that populates the document with the data from the referenced collection. */
     .populate("roles", "-__v")
     .exec((err, user) => {
       if (err) {
