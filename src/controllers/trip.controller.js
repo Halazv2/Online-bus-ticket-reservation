@@ -27,26 +27,28 @@ exports.getTripById = (req, res) => {
 };
 
 exports.filterTrips = (req, res) => {
-  const from = req.query.from;
-  const to = req.query.to;
-  const deperture_date = req.query.deperture_date;
-  const arrival_date = req.query.arrival_date;
-  const seats = req.query.seats;
-  const reserved_seats = req.query.reserved_seats;
-  const trip_status = req.query.trip_status;
-  const price = req.query.price;
-
-  var condition = /* A query to find all trips that have the from field that matches the from query
-  parameter. */
-  { from: { $regex: new RegExp(from), $options: "i" } };
-
-  Admin.find(condition)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving trips.",
-      });
-    });
+  const { depart, arrive } = req.body;
+  console.log(depart, arrive + "from controller");
+  Admin.find({ destanition: { $in: [depart] }, citys: { $in: [arrive] } }).then(
+    (data) => {
+      if (depart && arrive) {
+        if (data == "") {
+          res.status(404).send({
+            message:
+              "there is no trip from " +
+              depart +
+              " to " +
+              arrive +
+              " please try another trip",
+          });
+        } else {
+          res.send(data);
+        }
+      } else {
+        res.status(404).send({
+          message: "please enter depart and arrive",
+        });
+      }
+    }
+  );
 };
