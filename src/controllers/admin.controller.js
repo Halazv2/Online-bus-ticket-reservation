@@ -1,5 +1,7 @@
 const db = require("../models/admin");
 const Admin = db.admin;
+const dbUser = require("../models/auth");
+const User = dbUser.user;
 
 exports.createTrip = (req, res) => {
   const trip = new Admin({
@@ -9,6 +11,7 @@ exports.createTrip = (req, res) => {
     arrival_date: req.body.arrival_date,
     seats: req.body.seats,
     // reserved_seats: req.body.reserved_seats,
+    destanition: req.body.destanition,
     trip_status: req.body.trip_status,
     price: req.body.price,
   });
@@ -61,6 +64,23 @@ exports.deleteTrip = (req, res) => {
       res.status(500).send({
         status: 500,
         message: "Could not delete trip with id=" + id,
+      });
+    });
+};
+
+exports.banUser = (req, res) => {
+  const id = req.params.id;
+  User.findByIdAndUpdate(id, { status: false }, { useFindAndModify: false })
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot ban user with id=${id}. cause it doesn't exist!`,
+        });
+      } else res.send({ message: "User was banned successfully." });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error banning user with id=" + id,
       });
     });
 };
