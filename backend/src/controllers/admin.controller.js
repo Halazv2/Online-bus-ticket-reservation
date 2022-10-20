@@ -11,7 +11,12 @@ exports.createTrip = (req, res) => {
     arrival_date: req.body.arrival_date,
     seats: req.body.seats,
     // reserved_seats: req.body.reserved_seats,
-    destanition: req.body.destanition,
+    destanition: [
+      {
+        cities: req.body.cities,
+        date: req.body.date,
+      },
+    ],
     trip_status: req.body.trip_status,
     price: req.body.price,
   });

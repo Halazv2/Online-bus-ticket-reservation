@@ -13,5 +13,5 @@ module.exports = function (app) {
 
   app.get(`${url}/trips`, [authJwt.verifyToken], controller.getTrips);
   app.get(`${url}/trip/:id`, [authJwt.verifyToken], controller.getTripById);
-  app.get(`${url}/trips/filter`, [authJwt.verifyToken], controller.filterTrips);
+  app.post(`${url}/filter-trips`, controller.filterTrips);
 };

@@ -13,7 +13,6 @@ const Admin = mongoose.model(
     },
     deperture_date: {
       type: Date,
-      required: true,
     },
     arrival_date: {
       type: Date,
@@ -23,12 +22,32 @@ const Admin = mongoose.model(
       type: Number,
       required: true,
     },
-    reserved_seats: {
-      type: [Number],
-    },
+    destanition: [
+      {
+        cities: {
+          type: [String],
+          required: true,
+        },
+        date: {
+          type: [Date],
+          required: true,
+        },
+      },
+    ],
+    reserved_seats: [
+      {
+        type: [Number],
+      },
+    ],
     trip_status: {
       type: String,
-      required: true,
+      enum: ["active", "inactive"],
+      default: "active",
+    },
+    trip_type: {
+      type: String,
+      enum: ["premium", "normal", "economy", "vip"],
+      default: "normal",
     },
     price: {
       type: Number,

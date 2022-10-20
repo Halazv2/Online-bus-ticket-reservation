@@ -28,11 +28,32 @@ exports.getTripById = (req, res) => {
 
 exports.filterTrips = (req, res) => {
   const { depart, arrive } = req.body;
-  console.log(depart, arrive + "from controller");
-  Admin.find({ destanition: { $in: [depart] }, citys: { $in: [arrive] } }).then(
-    (data) => {
-      if (depart && arrive) {
-        if (data == "") {
+  Admin.find({
+    destanition: { $elemMatch: { cities: { $all: [depart, arrive] } } },
+  }).then((data) => {
+    if (depart && arrive) {
+      if (data == "") {
+        res.status(404).send({
+          message:
+            "there is no trip from " +
+            depart +
+            " to " +
+            arrive +
+            " please try another trip",
+        });
+      } else {
+        if (data[0].destanition[0].cities.indexOf(depart) < data[0].destanition[0].cities.indexOf(arrive)) {
+          res.send({
+            message:
+              "there is " +
+              data.length +
+              " trips from " +
+              depart +
+              " to " +
+              arrive,
+            data,
+          });
+        } else {
           res.status(404).send({
             message:
               "there is no trip from " +
@@ -41,14 +62,12 @@ exports.filterTrips = (req, res) => {
               arrive +
               " please try another trip",
           });
-        } else {
-          res.send(data);
         }
-      } else {
-        res.status(404).send({
-          message: "please enter depart and arrive",
-        });
       }
+    } else {
+      res.status(404).send({
+        message: "please enter depart and arrive",
+      });
     }
-  );
+  });
 };

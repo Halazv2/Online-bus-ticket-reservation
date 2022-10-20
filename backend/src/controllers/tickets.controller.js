@@ -27,10 +27,10 @@ exports.create = async (req, res) => {
     email: user.email,
   };
 
-  const trip = await trips.findById(req.body.trip_id);
+  // const trip = await trips.findById(req.body.trip_id);
   const tripInfo = {
-    from: trip.from,
-    to: trip.to,
+    from: req.body.from,
+    to: req.body.to,
   };
 
   const seat = await checkSeat(
@@ -109,7 +109,7 @@ exports.findAll = (req, res) => {
 
 const checkSeat = async (req, res, seat_number, trip_id) => {
   const trip = await trips.findById(trip_id);
-  const seats = trip.reserved_seats;
+  const seats = trip.reserved_seats ;
   if (seats.includes(seat_number)) {
     return true;
   }

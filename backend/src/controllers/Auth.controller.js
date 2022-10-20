@@ -1,5 +1,4 @@
 "use strict";
-const config = require("../config/auth.config");
 const db = require("../models/auth");
 const User = db.user;
 const Role = db.role;
@@ -75,23 +74,23 @@ exports.signin = (req, res) => {
         return;
       }
 
-      if (!user) {
-        return res.status(404).send({ message: "User Not found." });
-      }
+      (!user) ? res.status(404).send({ message: "User Not found." }) : null;
+     
+      
 
       var passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
       );
 
-      if (!passwordIsValid) {
-        return res.status(401).send({
+      !passwordIsValid
+      ? res.status(401).send({
           accessToken: null,
           message: "Invalid Password!",
-        });
-      }
+        }): null;
+      
 
-      var token = jwt.sign({ id: user.id }, config.secret, {
+      var token = jwt.sign({ id: user.id }, process.env.SECRET, {
         expiresIn: 86400, // 24 hours
       });
 
