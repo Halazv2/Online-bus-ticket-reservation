@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { Formik } from "formik";
+import { Signup } from "../../api/auth/auth";
 
 const schema = yup.object().shape({
   fullName: yup.string().required("Full name is required"),
@@ -11,8 +12,9 @@ const schema = yup.object().shape({
 });
 
 export default function Register() {
+  const [error, setError] = useState(null);
   const handleOnSubmit = (values) => {
-    console.log(values);
+    Signup(values, setError);
   };
 
   return (
@@ -38,7 +40,9 @@ export default function Register() {
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                <div className="text-blueGray-400 text-center mb-3 font-bold"></div>
+                <div className="text-blueGray-400 text-center mb-3 font-bold">
+                  {error && <p>{error}</p>}
+                </div>
                 <Formik
                   initialValues={{
                     fullName: "",
@@ -149,7 +153,7 @@ export default function Register() {
                         <button
                           className="bg-indigo-600 text-white cursor-pointer hover:bg-indigo-700 active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                           type="submit"
-                          disabled={!isValid || isSubmitting}
+                          disabled={!isValid}
                         >
                           Create Account
                         </button>
