@@ -2,8 +2,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
-import UserDropdown from "components/Dropdowns/UserDropdown.js";
+// import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
+// import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
@@ -29,10 +29,10 @@ export default function Sidebar() {
           {/* User */}
           <ul className="md:hidden items-center flex flex-wrap list-none">
             <li className="inline-block relative">
-              <NotificationDropdown />
+              {/* <NotificationDropdown /> */}
             </li>
             <li className="inline-block relative">
-              <UserDropdown />
+              {/* <UserDropdown /> */}
             </li>
           </ul>
           {/* Collapse */}
@@ -70,7 +70,7 @@ export default function Sidebar() {
                 <input
                   type="text"
                   placeholder="Search"
-                  className="border-0 px-3 py-2 h-12 border border-solid  border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
+                  className="px-3 py-2 h-12 border border-solid  border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal"
                 />
               </div>
             </form>

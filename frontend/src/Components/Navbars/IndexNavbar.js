@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBar({ isLogged, setIsLogged }) {
   const [navbar, setNavbar] = useState(false);
 
   return (
@@ -10,7 +10,9 @@ export default function NavBar() {
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
             <Link to="/" className="text-2xl font-bold ">
-              <h2 className="text-2xl font-bold hover:text-indigo-700 text-indigo-600 ">Mekna'7</h2>
+              <h2 className="text-2xl font-bold hover:text-indigo-700 text-indigo-600 ">
+                Mekna'7
+              </h2>
             </Link>
             <div className="md:hidden">
               <button
@@ -70,37 +72,40 @@ export default function NavBar() {
                 <Link to="/contact-us">Contact US</Link>{" "}
               </li>
             </ul>
-
-            <div className="mt-3 space-y-2 lg:hidden md:inline-block">
-              <Link
-                to="/login"
-                className="inline-block w-full px-4 py-2 text-center  bg-gray-600 rounded-md shadow hover:bg-gray-800"
-              >
-                Sign in
-              </Link>
-              <Link
-                to="/register"
-                className="inline-block w-full px-4 py-2 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
-              >
-                Sign up
-              </Link>
-            </div>
+            {isLogged && (
+              <div className="mt-3 space-y-2 lg:hidden md:inline-block">
+                <Link
+                  to="/login"
+                  className="inline-block w-full px-4 py-2 text-center  text-white bg-indigo-600 rounded-md shadow hover:bg-indigo-700"
+                >
+                  Sign in
+                </Link>
+                <Link
+                  to="/register"
+                  className="inline-block w-full px-4 py-2 text-center text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
+                >
+                  Sign up
+                </Link>
+              </div>
+            )}
           </div>
         </div>
-        <div className="hidden space-x-2 md:inline-block">
-          <Link
-            to="/login"
-            className="px-4 py-2 text-white bg-indigo-600 rounded-md shadow hover:bg-indigo-700"
-          >
-            Sign in
-          </Link>
-          <Link
-            to="/register"
-            className="px-4 py-2 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
-          >
-            Sign up
-          </Link>
-        </div>
+        {isLogged && (
+          <div className="hidden space-x-2 md:inline-block">
+            <Link
+              to="/login"
+              className="px-4 py-2 text-white bg-indigo-600 rounded-md shadow hover:bg-indigo-700"
+            >
+              Sign in
+            </Link>
+            <Link
+              to="/register"
+              className="px-4 py-2 text-gray-800 bg-white rounded-md shadow hover:bg-gray-100"
+            >
+              Sign up
+            </Link>
+          </div>
+        )}
       </div>
     </nav>
   );
