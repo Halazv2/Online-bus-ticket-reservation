@@ -10,7 +10,7 @@ const connectDB = require("./src/config/db.config");
 app.use(errorHandlers);
 app.use(cors());
 connectDB();
-app.use(bodyParser.json());
+app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 
 require("./src/routes/index.routes")(app);
 
