@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { Formik } from "formik";
+import axios from "axios";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -9,8 +10,33 @@ const schema = yup.object().shape({
 });
 
 export default function Login() {
+  const ROOT_URL = "http://localhost:5000/api/v1/mekna7";
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const navigate = useNavigate();
   const handleOnSubmit = (values) => {
-    console.log(values);
+    axios
+      .post(
+        `${ROOT_URL}/signin`,
+        {
+          email: values.email,
+          password: values.password,
+        },
+        config
+      )
+      .then((res) => {
+        if (res) {
+          console.log(res);
+          localStorage.setItem("accessToken", res.data.accessToken);
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -101,7 +127,7 @@ export default function Login() {
                         <button
                           className="bg-indigo-600 text-white hover:bg-indigo-700 active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                           type="submit"
-                          disabled={!isValid || isSubmitting}
+                          disabled={!isValid}
                         >
                           Create Account
                         </button>
