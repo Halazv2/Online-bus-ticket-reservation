@@ -4,6 +4,8 @@ import * as yup from "yup";
 import { Formik } from "formik";
 import axios from "axios";
 import IndexNavbar from "../../Components/Navbars/IndexNavbar";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/auth";
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -18,6 +20,7 @@ export default function Login() {
     },
   };
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleOnSubmit = (values) => {
     axios
       .post(
@@ -32,6 +35,14 @@ export default function Login() {
         if (res) {
           console.log(res);
           localStorage.setItem("accessToken", res.data.accessToken);
+          localStorage.setItem("userID", res.data.id);
+          dispatch(
+            login({
+              accessToken: res.data.accessToken,
+              user: res.data.user,
+            })
+          );
+
           navigate("/");
         }
       })
