@@ -1,22 +1,32 @@
 import * as yup from "yup";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { setTrips } from "../../redux/trip.js";
+import axios from "axios";
 const schema = yup.object().shape({
   from: yup.string().required(),
   to: yup.string().required(),
-  guest: yup.number().required(),
-  date: yup.date().required(),
+  // guest: yup.number().required(),
+  // date: yup.date().required(),
 });
 
-const Search = ({ trip, setTrip }) => {
+const Search = () => {
   const navigate = useNavigate();
-  const handleOnSubmit = (values) => {
-    // console.log(values);
-    setTrip(values);
-    setTimeout(() => {
-      navigate("/trips");
-    }, 1000);
+  const dispatch = useDispatch();
+  const handleOnSubmit = async (values) => {
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/filter-trips`, {
+        depart: values.from,
+        arrive: values.to,
+      })
+      .then((res) => {
+        dispatch(setTrips(res.data.data));
+        navigate("/trips");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
   return (
     <div className=" flex items-center justify-center bg-white lg:mt-16  flex-col sm:flex-row shadow-lg rounded-lg">
@@ -94,14 +104,14 @@ const Search = ({ trip, setTrip }) => {
                         </label>
                         <input
                           type="number"
-                          name="guest"
+                          // name="guest"
                           id="guest"
                           placeholder="5"
                           min="0"
                           className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.guest}
+                          // onChange={handleChange}
+                          // onBlur={handleBlur}
+                          // value={values.guest}
                         />
                         <div className="text-red-500 text-xs italic">
                           {errors.guest && touched.guest && errors.guest}
@@ -118,12 +128,12 @@ const Search = ({ trip, setTrip }) => {
                           /* Setting the minimum date to today's date. */
                           min={new Date().toISOString().split("T")[0]}
                           max="2022-12-31"
-                          name="date"
+                          // name="date"
                           id="date"
                           className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.date}
+                          // onChange={handleChange}
+                          // onBlur={handleBlur}
+                          // value={values.date}
                         />
                         <div className="text-red-500 text-xs italic">
                           {errors.date && touched.date && errors.date}
