@@ -12,8 +12,24 @@ const Tickets = mongoose.model(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "users",
+        default: null,
       },
     ],
+    user_info: {
+      name: {
+        type: String,
+        default: function () {
+          this.user_info.name ? this.user_info.name : "Guest";
+        },
+      },
+      email: {
+        type: String,
+        default: function () {
+          this.user_info.email ? this.user_info.email : "Guest";
+        },
+      },
+      required: false,
+    },
     seat_number: {
       type: Number,
       required: true,
@@ -22,6 +38,10 @@ const Tickets = mongoose.model(
       type: String,
       enum: ["active", "inactive"],
       default: "active",
+    },
+    phoneNmber: {
+      type: Number,
+      required: true,
     },
   })
 );

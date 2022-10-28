@@ -17,14 +17,19 @@ exports.create = async (req, res) => {
   const ticket = new Tickets({
     trip_id: req.body.trip_id,
     user_id: req.body.user_id,
+    user_info: {
+      name: req.body.name,
+      email: req.body.email,
+    },
     seat_number: req.body.seat_number,
     status: req.body.status,
+    phoneNmber: req.body.phoneNmber,
   });
 
   const user = await User.findById(req.body.user_id);
   const passangerInfo = {
-    name: user.full_name,
-    email: user.email,
+    name: req.body.user_id  ? user.full_name : req.body.name,
+    email: req.body.user_id ? user.email : req.body.email,
   };
 
   // const trip = await trips.findById(req.body.trip_id);
@@ -45,7 +50,7 @@ exports.create = async (req, res) => {
       .save(ticket)
       .then((data) => {
         res.send({
-          message: "Ticket was created successfully!",
+          message: "Your ticket has been booked successfully",
           id: data._id,
           trip_id: data.trip_id,
           user_id: data.user_id,
@@ -109,7 +114,7 @@ exports.findAll = (req, res) => {
 
 const checkSeat = async (req, res, seat_number, trip_id) => {
   const trip = await trips.findById(trip_id);
-  const seats = trip.reserved_seats ;
+  const seats = trip.reserved_seats;
   if (seats.includes(seat_number)) {
     return true;
   }
