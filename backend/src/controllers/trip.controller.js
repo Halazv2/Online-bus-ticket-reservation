@@ -42,7 +42,10 @@ exports.filterTrips = (req, res) => {
             " please try another trip",
         });
       } else {
-        if (data[0].destanition[0].cities.indexOf(depart) < data[0].destanition[0].cities.indexOf(arrive)) {
+        if (
+          data[0].destanition[0].cities.indexOf(depart) <
+          data[0].destanition[0].cities.indexOf(arrive)
+        ) {
           res.send({
             message:
               "there is " +
@@ -51,7 +54,21 @@ exports.filterTrips = (req, res) => {
               depart +
               " to " +
               arrive,
-            data,
+            data: data.map((item) => {
+              return {
+                id: item._id,
+                destanition: [
+                  {
+                    cities: [depart, arrive],
+                  },
+                ],
+                trip_type: item.trip_type,
+                price: item.price,
+                trip_status: item.trip_status,
+                seats: item.seats,
+                reserved_seats: item.reserved_seats,
+              };
+            }),
           });
         } else {
           res.status(404).send({
