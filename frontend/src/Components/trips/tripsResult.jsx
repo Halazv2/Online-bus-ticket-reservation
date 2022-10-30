@@ -1,12 +1,21 @@
+import { useDispatch } from "react-redux";
+import { setSelectedTripID } from "../../redux/trip.js";
+import { useNavigate } from "react-router-dom";
 const TripsResult = ({ trip }) => {
   let hafid;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const from = () => {
     trip.map((trip) => {
-      console.log(trip.destanition || "no from");
       return (hafid = trip.destanition);
     });
   };
   from();
+
+  const handleOnClick = () => {
+    dispatch(setSelectedTripID(trip.map((trip) => trip.id)));
+    navigate("/booking");
+  };
   return (
     <div className="flex justify-center items-center">
       <div
@@ -40,8 +49,11 @@ const TripsResult = ({ trip }) => {
         <div className="flex justify-between items-center">
           <span>20/10/2023</span>
           <button
-            
-          className="flex items-center justify-center text-xs font-medium rounded-full px-4 py-2 space-x-1 bg-white text-black">
+            onClick={() => {
+              handleOnClick();
+            }}
+            className="flex items-center justify-center text-xs font-medium rounded-full px-4 py-2 space-x-1 bg-white text-black"
+          >
             <span>Book Now</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"

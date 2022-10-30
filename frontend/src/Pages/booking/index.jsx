@@ -19,6 +19,7 @@ const Booking = () => {
   const SelectIsAuthenticated = useSelector(
     (state) => state.auth.isAuthenticated
   );
+  const selectedTripID = useSelector((state) => state.trip.selectedTripID[0]);
   // console.log(seats);
   const [selectSeactError, setSelectSeactError] = useState(false);
   const handleOnSubmit = async (values) => {
@@ -28,7 +29,7 @@ const Booking = () => {
     } else {
       axios
         .post(`${process.env.REACT_APP_API_URL}/tickets`, {
-          trip_id: "634fd47bf344b8515796ab94",
+          trip_id: selectedTripID,
           user_id: SelectIsAuthenticated
             ? localStorage.getItem("userID")
             : null,
