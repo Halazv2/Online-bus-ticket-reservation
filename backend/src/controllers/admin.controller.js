@@ -73,9 +73,15 @@ exports.deleteTrip = (req, res) => {
     });
 };
 
+
+
 exports.banUser = (req, res) => {
   const id = req.params.id;
-  User.findByIdAndUpdate(id, { status: false }, { useFindAndModify: false })
+  User.findByIdAndUpdate(
+    id,
+    { status: "inactive" },
+    { useFindAndModify: false }
+  )
     .then((data) => {
       if (!data) {
         res.status(404).send({
@@ -86,6 +92,35 @@ exports.banUser = (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message: "Error banning user with id=" + id,
+      });
+    });
+};
+
+exports.unbanUser = (req, res) => {
+  const id = req.params.id;
+  User.findByIdAndUpdate(id, { status: "active" }, { useFindAndModify: false })
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot unban user with id=${id}. cause it doesn't exist!`,
+        });
+      } else res.send({ message: "User was unbanned successfully." });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error unbanning user with id=" + id,
+      });
+    });
+};
+
+exports.getAllUsers = (req, res) => {
+  User.find()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving users.",
       });
     });
 };

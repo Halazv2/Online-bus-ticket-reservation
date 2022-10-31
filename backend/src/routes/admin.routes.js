@@ -28,4 +28,20 @@ module.exports = function (app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.deleteTrip
   );
+
+  app.get(
+    `${url}/admin/getAllUsers`,
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.getAllUsers
+  );
+  app.get(
+    `${url}/admin/banUser/:id`,
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.banUser
+  );
+  app.get(
+    `${url}/admin/unbanUser/:id`,
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.unbanUser
+  );
 };
