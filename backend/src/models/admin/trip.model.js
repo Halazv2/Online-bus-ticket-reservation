@@ -29,7 +29,7 @@ const Admin = mongoose.model(
           required: true,
         },
         date: {
-          type: [Date],
+          type: [String],
           required: true,
         },
       },
