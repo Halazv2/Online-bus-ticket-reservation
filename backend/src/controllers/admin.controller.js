@@ -73,8 +73,6 @@ exports.deleteTrip = (req, res) => {
     });
 };
 
-
-
 exports.banUser = (req, res) => {
   const id = req.params.id;
   User.findByIdAndUpdate(
@@ -122,5 +120,18 @@ exports.getAllUsers = (req, res) => {
       res.status(500).send({
         message: err.message || "Some error occurred while retrieving users.",
       });
+    });
+};
+
+exports.getTripById = (req, res) => {
+  const id = req.params.id;
+  Admin.findById(id)
+    .then((data) => {
+      if (!data)
+        res.status(404).send({ message: "Not found trip with id " + id });
+      else res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({ message: "Error retrieving trip with id=" + id });
     });
 };

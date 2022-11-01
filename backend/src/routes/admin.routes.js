@@ -44,4 +44,9 @@ module.exports = function (app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.unbanUser
   );
+  app.get(
+    `${url}/admin/getTripById/:id`,
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.getTripById
+  );
 };
