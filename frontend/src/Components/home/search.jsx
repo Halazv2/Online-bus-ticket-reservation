@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setTrips } from "../../redux/trip.js";
 import axios from "axios";
+import { useState } from "react";
 const schema = yup.object().shape({
   from: yup.string().required(),
   to: yup.string().required(),
@@ -14,6 +15,7 @@ const schema = yup.object().shape({
 const Search = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [err, setErr] = useState(false);
   const handleOnSubmit = async (values) => {
     axios
       .post(`${process.env.REACT_APP_API_URL}/filter-trips`, {
@@ -25,6 +27,7 @@ const Search = () => {
         navigate("/trips");
       })
       .catch((err) => {
+        setErr(true);
         console.log(err.message);
       });
   };
@@ -33,6 +36,9 @@ const Search = () => {
       <div className="sm:flex items-center flex-col">
         <div className="flex items-center justify-center p-12">
           <div className="mx-auto w-full ">
+            <div className="text-red-500 italic text-center mb-2">
+              {err && "No trips found for the selected destination"}
+            </div>
             <Formik
               initialValues={{
                 from: "",
