@@ -11,14 +11,6 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import Booking from "./Pages/booking";
 
 function App() {
-  const [isLogged, setIsLogged] = useState(true);
-  const [trip, setTrip] = useState({});
-
-  useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      setIsLogged(false);
-    }
-  }, []);
   return (
     <div className="relative">
       <BrowserRouter>
@@ -27,12 +19,12 @@ function App() {
             <Route path="/trips" element={<Trips />} />
             <Route path="/dashboard" element={<Dashboardd />} />
             <Route path="/dashboard/users" element={<DashboardUser />} />
-          </Route>
-          <Route path="/" element={<Index />} />
-          <Route path="*" element={<h1>Not Found</h1>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+            <Route path="/" element={<Index />} />
           <Route path="/Booking" element={<Booking />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<h1>Not Found</h1>} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </div>
