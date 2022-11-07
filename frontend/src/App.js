@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Index from "./Pages/Index.jsx";
@@ -9,6 +9,9 @@ import Dashboardd from "./Pages/admin/Dashboard";
 import DashboardUser from "./Pages/admin/DashboardUser";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Booking from "./Pages/booking";
+import AfterBooking from "./Pages/booking/AfterBooking";
+import AboutUs from "./Pages/AboutUs";
+import Contact from "./Pages/Contact";
 
 function App() {
   return (
@@ -20,8 +23,11 @@ function App() {
             <Route path="/dashboard" element={<Dashboardd />} />
             <Route path="/dashboard/users" element={<DashboardUser />} />
             <Route path="/" element={<Index />} />
-          <Route path="/Booking" element={<Booking />} />
+            <Route path="/Booking" element={<Booking />} />
+            <Route path="/Ticket/:id" element={<AfterBooking />} />
           </Route>
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<h1>Not Found</h1>} />
           <Route path="/register" element={<Register />} />
