@@ -25,8 +25,17 @@ const Tickets = mongoose.model(
       email: {
         type: String,
         default: function () {
-          this.user_info.email ? this.user_info.email : "Guest";
+          this.user_info.email ? this.user_info.email : "Guest@d.com";
         },
+      },
+      required: false,
+    },
+    tripInfo: {
+      from: {
+        type: String,
+      },
+      to: {
+        type: String,
       },
       required: false,
     },
@@ -40,6 +49,10 @@ const Tickets = mongoose.model(
       default: "active",
     },
     phoneNmber: {
+      type: Number,
+      required: true,
+    },
+    price: {
       type: Number,
       required: true,
     },
