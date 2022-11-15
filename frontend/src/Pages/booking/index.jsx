@@ -5,6 +5,7 @@ import axios from "axios";
 import Seats from "./seats";
 import IndexNavbar from "../../Components/Navbars/IndexNavbar";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -19,27 +20,40 @@ const Booking = () => {
   const SelectIsAuthenticated = useSelector(
     (state) => state.auth.isAuthenticated
   );
+  const SelectTrip = useSelector((state) => state.trip.bookedTrip[0]);
   const selectedTripID = useSelector((state) => state.trip.selectedTripID[0]);
-  // console.log(seats);
+  const navigate = useNavigate();
   const [selectSeactError, setSelectSeactError] = useState(false);
   const handleOnSubmit = async (values) => {
-    console.log(values + seats);
+    const from = SelectTrip[0].destanition
+      .map((item) => item.cities[0])
+      .toString();
+    const to = SelectTrip[0].destanition
+      .map((item) => item.cities[1])
+      .toString();
+    // console.log(values + seats);
     if (seats === null) {
       setSelectSeactError(true);
     } else {
+      // return;
       axios
         .post(`${process.env.REACT_APP_API_URL}/tickets`, {
           trip_id: selectedTripID,
-          user_id: SelectIsAuthenticated
+          user_id: localStorage.getItem("userID")
             ? localStorage.getItem("userID")
             : null,
+
           name: !SelectIsAuthenticated ? null : values.name,
           email: !SelectIsAuthenticated ? null : values.email,
           seat_number: seats,
           phoneNmber: values.phone,
+          from: from,
+          to: to,
+          price: SelectTrip[0].price,
         })
         .then((res) => {
           console.log(res.data);
+          navigate(`/Ticket/${res.data.id}`);
         })
         .catch((err) => {
           console.log(err.message);
@@ -47,10 +61,20 @@ const Booking = () => {
     }
   };
   return (
-    <div className="">
+    <div
+      className=""
+      style={{
+        backgroundImage:
+          "url(https://cdn.tuk.dev/assets/templates/weCare/hero2-bg.png)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        height: "100vh",
+      }}
+    >
       <IndexNavbar />
-      <div className="flex lg:flex-row flex-col h-screen justify-center items-center">
-        <div className=" flex items-center justify-center h-fit bg-white lg:m-10 m-2 flex-col sm:flex-row shadow-lg rounded-lg">
+      <div className="flex lg:flex-row flex-col justify-center items-center h-fit">
+        <div className=" flex items-center justify-center h-fit lg:w-[50%] w-[90%]  bg-white lg:m-10 m-2 flex-col sm:flex-row shadow-lg rounded-lg">
           <div className="sm:flex items-center flex-col">
             <div className="flex items-center justify-center p-12">
               <div className="mx-auto w-full ">
@@ -158,7 +182,7 @@ const Booking = () => {
                             type="submit"
                             // disabled={!isValid}
                             onClick={() => handleOnSubmit(values)}
-                            className="w-full px-3 py-4 text-white bg-[#07074D] cursor-pointer rounded-lg focus:bg-[#07074D] hover:bg-[#07074D] focus:outline-none"
+                            className="w-full px-3 py-4 cursor-pointer text-white bg-indigo-600 hover:bg-indigo-700 p-2 flex justify-center rounded relative"
                           >
                             Book Now
                           </button>
