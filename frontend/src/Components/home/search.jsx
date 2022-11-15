@@ -8,8 +8,8 @@ import { useState } from "react";
 const schema = yup.object().shape({
   from: yup.string().required(),
   to: yup.string().required(),
-  // guest: yup.number().required(),
-  // date: yup.date().required(),
+  guest: yup.number().required(),
+  date: yup.date().required(),
 });
 
 const Search = () => {
@@ -21,6 +21,8 @@ const Search = () => {
       .post(`${process.env.REACT_APP_API_URL}/filter-trips`, {
         depart: values.from,
         arrive: values.to,
+        deperture_date: values.date,
+        passangers: values.guest,
       })
       .then((res) => {
         dispatch(setTrips(res.data.data));
@@ -43,8 +45,8 @@ const Search = () => {
               initialValues={{
                 from: "",
                 to: "",
-                // guest: "",
-                // date: "",
+                guest: "",
+                date: "",
               }}
               validationSchema={schema}
               onSubmit={handleOnSubmit}
@@ -110,14 +112,14 @@ const Search = () => {
                         </label>
                         <input
                           type="number"
-                          // name="guest"
+                          name="guest"
                           id="guest"
                           placeholder="5"
                           min="0"
                           className="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                          // onChange={handleChange}
-                          // onBlur={handleBlur}
-                          // value={values.guest}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.guest}
                         />
                         <div className="text-red-500 text-xs italic">
                           {errors.guest && touched.guest && errors.guest}
@@ -131,15 +133,14 @@ const Search = () => {
                         </label>
                         <input
                           type="date"
-                          /* Setting the minimum date to today's date. */
                           min={new Date().toISOString().split("T")[0]}
                           max="2022-12-31"
-                          // name="date"
+                          name="date"
                           id="date"
                           className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                          // onChange={handleChange}
-                          // onBlur={handleBlur}
-                          // value={values.date}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.date}
                         />
                         <div className="text-red-500 text-xs italic">
                           {errors.date && touched.date && errors.date}
