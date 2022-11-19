@@ -31,6 +31,12 @@ function UserMenu() {
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
+  const logout = () => {
+    localStorage.removeItem("userID");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userEmail");
+  };
+
   return (
     <div className="relative inline-flex">
       <button
@@ -73,7 +79,7 @@ function UserMenu() {
               <Link
                 className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
                 to="/"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                onClick={() => {logout();}}
               >
                 Sign Out
               </Link>
