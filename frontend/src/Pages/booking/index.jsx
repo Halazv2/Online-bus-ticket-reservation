@@ -43,8 +43,8 @@ const Booking = () => {
             ? localStorage.getItem("userID")
             : null,
 
-          name: !SelectIsAuthenticated ? null : values.name,
-          email: !SelectIsAuthenticated ? null : values.email,
+          name: SelectIsAuthenticated ? null : values.name,
+          email: SelectIsAuthenticated ? null : values.email,
           seat_number: seats,
           phoneNmber: values.phone,
           from: from,
@@ -52,7 +52,6 @@ const Booking = () => {
           price: SelectTrip[0].price,
         })
         .then((res) => {
-          console.log(res.data);
           navigate(`/Ticket/${res.data.id}`);
         })
         .catch((err) => {
