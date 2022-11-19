@@ -19,4 +19,5 @@ module.exports = function (app) {
     controller.signup
   );
   app.post(`${url}/signin`, controller.signin);
+  app.post(`${url}/verifyisAdmin`, controller.verifyisAdmin);
 };
