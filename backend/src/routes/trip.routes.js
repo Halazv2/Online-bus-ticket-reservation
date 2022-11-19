@@ -7,9 +7,11 @@ module.exports = function (app) {
     res.header(
       "Access-Control-Allow-Headers",
       "x-access-token, Origin, Content-Type, Accept",
-      "Access-Control-Allow-Origin: localhost:3000",
-      "Access-Control-Allow-Methods: GET, POST, OPTIONS"
+      "Access-Control-Allow-Origin: *",
+      "Access-Control-Allow-Headers",
+      "X-Requested-With, Content-Type"
     );
+    if ("OPTIONS" == req.method) return res.send(200);
     next();
   });
 
