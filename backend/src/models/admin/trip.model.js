@@ -36,7 +36,7 @@ const Admin = mongoose.model(
     ],
     reserved_seats: [
       {
-        type: [Number],
+        type: Number,
       },
     ],
     trip_status: {
