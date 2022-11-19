@@ -2,7 +2,6 @@ import React, {
   useRef as UseRef,
   useEffect as UseEffect,
   useState,
-  useEffect,
 } from "react";
 import Transition from "../../utils/Transition";
 import * as yup from "yup";
@@ -22,7 +21,6 @@ const schema = yup.object().shape({
 });
 
 function AddTripModal({ modalOpen, setModalOpen, getTrips }) {
-  const tripID = useSelector((state) => state.trip.tripID);
   let selectedCities = [];
   let selectedDates = [];
   const [updatedTrip, setUpdatedTrip] = useState({
@@ -38,15 +36,6 @@ function AddTripModal({ modalOpen, setModalOpen, getTrips }) {
   const modalContent = UseRef(null);
   const animatedComponents = makeAnimated();
 
-  // close on click outside
-  // UseEffect(() => {
-  //   const clickHandler = ({ target }) => {
-  //     if (!modalOpen || modalContent.current.contains(target)) return;
-  //     setModalOpen(false);
-  //   };
-  //   document.addEventListener("click", clickHandler);
-  //   return () => document.removeEventListener("click", clickHandler);
-  // });
   // close if the esc key is pressed
   UseEffect(() => {
     const keyHandler = ({ keyCode }) => {
@@ -145,11 +134,7 @@ function AddTripModal({ modalOpen, setModalOpen, getTrips }) {
         console.log(err.message);
       });
   };
-  useEffect(() => {
-    if (tripID !== null) {
-      getTripById(tripID);
-    }
-  }, [tripID]);
+
   return (
     <>
       {/* Modal backdrop */}
@@ -245,7 +230,7 @@ function AddTripModal({ modalOpen, setModalOpen, getTrips }) {
                         name="from"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={tripID === null ? values.from : tripID.from_city}
+                        value={values.from}
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       />
                       <div className="text-red-500 text-xs italic">
