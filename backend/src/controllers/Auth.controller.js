@@ -109,3 +109,26 @@ exports.signin = (req, res) => {
       });
     });
 };
+
+exports.verifyisAdmin = (req, res) => {
+  User.findOne({ email: req.body.email })
+    .populate("roles", "-__v")
+    .exec((err, user) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+
+      !user ? res.status(404).send({ message: "User Not found." }) : null;
+
+      var authorities = [];
+
+      for (let i = 0; i < user.roles.length; i++) {
+        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
+      }
+
+      res.status(200).send({
+        roles: authorities,
+      });
+    });
+};
