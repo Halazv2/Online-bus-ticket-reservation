@@ -1,8 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function NavBar({ isLogged, setIsLogged }) {
+export default function NavBar() {
   const [navbar, setNavbar] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      setIsLogged(true);
+      console.log("logged");
+    }
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem("userID");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userEmail");
+    setIsLogged(false);
+  };
 
   return (
     <nav className="w-full  shadow">
@@ -63,16 +77,13 @@ export default function NavBar({ isLogged, setIsLogged }) {
                 <Link to="/">Home</Link>{" "}
               </li>
               <li className=" hover:text-indigo-200">
-                <Link to="/book">Book</Link>{" "}
-              </li>
-              <li className=" hover:text-indigo-200">
                 <Link to="/about">About</Link>{" "}
               </li>
               <li className=" hover:text-indigo-200">
-                <Link to="/contact-us">Contact US</Link>{" "}
+                <Link to="/contact">Contact US</Link>{" "}
               </li>
             </ul>
-            {isLogged && (
+            {!isLogged ? (
               <div className="mt-3 space-y-2 lg:hidden md:inline-block">
                 <Link
                   to="/login"
@@ -87,10 +98,34 @@ export default function NavBar({ isLogged, setIsLogged }) {
                   Sign up
                 </Link>
               </div>
+            ) : (
+              <div className="mt-3 space-y-2 lg:hidden md:inline-block">
+                <Link
+                  to="/"
+                  className="inline-block w-full px-4 py-2 text-center  text-white bg-indigo-600 rounded-md shadow hover:bg-indigo-700"
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  Logout
+                </Link>
+              </div>
             )}
           </div>
         </div>
-        {isLogged && (
+        {isLogged ? (
+          <div className="hidden space-x-2 md:inline-block">
+            <Link
+              to="/"
+              className="px-4 py-2 text-white bg-indigo-600 rounded-md shadow hover:bg-indigo-700"
+              onClick={() => {
+                logout();
+              }}
+            >
+              Logout
+            </Link>
+          </div>
+        ) : (
           <div className="hidden space-x-2 md:inline-block">
             <Link
               to="/login"
