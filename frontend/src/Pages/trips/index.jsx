@@ -1,6 +1,7 @@
 import TripsResult from "../../Components/trips/tripsResult";
 import { useSelector } from "react-redux";
 import IndexNavbar from "../../Components/Navbars/IndexNavbar";
+import FooterSmall from "../../Components/Footers/Footer";
 
 const Trips = () => {
   const select = useSelector((state) => state.trip.trips);
@@ -17,16 +18,8 @@ const Trips = () => {
         }}
       >
         <IndexNavbar />
-        <div className="flex flex-col items-center justify-start h-full">
-          <div className="flex flex-col items-center justify-center space-y-4">
-            <h1 className="text-4xl font-bold">
-              {select.length === 1
-                ? "There is 1 trip"
-                : `There are ${select.length} trips`}
-            </h1>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center mt-5 lg:gap-24  md:gap-6 ">
+        <div className="flex flex-col items-center justify-start h-[82vh]">
+          <div className="flex flex-wrap items-center justify-center h-full mt-5 lg:gap-24  md:gap-6 ">
             {select.length > 0 ? (
               select.map((trip) => {
                 return (
@@ -40,6 +33,7 @@ const Trips = () => {
             )}
           </div>
         </div>
+        <FooterSmall className="-mt-6" />
       </section>
     </>
   );
