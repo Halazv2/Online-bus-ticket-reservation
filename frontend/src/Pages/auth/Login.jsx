@@ -33,9 +33,9 @@ export default function Login() {
       )
       .then((res) => {
         if (res) {
-          console.log(res);
           localStorage.setItem("accessToken", res.data.accessToken);
           localStorage.setItem("userID", res.data.id);
+          localStorage.setItem("userEmail", res.data.email);
           dispatch(
             login({
               accessToken: res.data.accessToken,
