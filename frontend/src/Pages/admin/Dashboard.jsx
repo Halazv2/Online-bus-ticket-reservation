@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import Sidebar from "../../partials/Sidebar";
 import Header from "../../partials/Header";
 import WelcomeBanner from "../../partials/dashboard/WelcomeBanner";
@@ -11,6 +10,7 @@ function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [trips, setTrips] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
 
   const getTrips = async () => {
     axios
@@ -55,7 +55,8 @@ function Dashboard() {
             <DashboardCard
               trips={trips}
               getTrips={getTrips}
-              setModalOpen={setModalOpen}
+              updateModalOpen={updateModalOpen}
+              setUpdateModalOpen={setUpdateModalOpen}
             />
           </div>
         </main>
