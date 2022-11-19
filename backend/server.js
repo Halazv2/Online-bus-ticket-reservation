@@ -8,7 +8,7 @@ const { errorHandlers } = require("./src/middlewares/errorMiddlewares");
 const connectDB = require("./src/config/db.config");
 
 app.use(errorHandlers);
-app.use(cors());
+app.use(cors("localhost:3000"));
 connectDB();
 app.use(bodyParser.json(), bodyParser.urlencoded({ extended: true }));
 

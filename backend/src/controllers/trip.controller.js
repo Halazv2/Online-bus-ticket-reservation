@@ -30,11 +30,12 @@ exports.filterTrips = (req, res) => {
   const { depart, arrive, deperture_date, passangers } = req.body;
   const getPrice = (start, end) => {
     let second = "00";
+    console.log(start, end);
     start = start.split(":");
     end = end.split(":");
 
-    let startDate = new Date(2020, 5, 5, start[0], start[1], second);
-    let endDate = new Date(2020, 5, 5, end[0], end[1], second);
+    let startDate = new Date(2022, 12, 5, start[0], start[1], second);
+    let endDate = new Date(2022, 12, 5, end[0], end[1], second);
     let difference = endDate.getTime() - startDate.getTime();
     difference = difference / 1000;
     let hourDifference = Math.floor(difference / 3600);
@@ -43,7 +44,6 @@ exports.filterTrips = (req, res) => {
     difference -= minuteDifference * 60;
     minuteDifference = minuteDifference / 60;
     let diff = minuteDifference + hourDifference;
-    // return only 2 numbers after the dot (ex: 1.5)
     let price = 30 * diff;
     return price.toFixed(2);
   };
@@ -69,7 +69,7 @@ exports.filterTrips = (req, res) => {
             trip.destanition[0].cities.indexOf(arrive)
           ];
         });
-        // console.log(timeofdepart + " and " + timeofarrive);
+        console.log(timeofdepart + " and " + timeofarrive);
         const getP = getPrice(timeofdepart[0], timeofarrive[0]);
         const filteredTrips = data.filter(
           (trip) => trip.reserved_seats.length + passangers <= trip.seats
@@ -89,7 +89,7 @@ exports.filterTrips = (req, res) => {
                 timeofdepart: timeofdepart,
                 price: getP,
                 seats: trip.seats - trip.reserved_seats.length,
-                reserved_seats: trip.reserved_seats.length,
+                reserved_seats: trip.reserved_seats,
                 trip_type: trip.trip_type,
               };
             }),
